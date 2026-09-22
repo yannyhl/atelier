@@ -6,3 +6,4 @@ dist/
 # render and capture scratch; curated outputs are copied into work/NNN-slug/
 .render-cache/
 artifacts/
+.render-cache/

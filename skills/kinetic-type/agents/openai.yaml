@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kinetic Type"
+  short_description: "Animated 3D and DOM typography, fonts and accessible text"
+  default_prompt: "Use $kinetic-type to add animated titles, character reveals, scramble subtitles or the rainbow CTA, with the right fonts, tracking and screen-reader text."

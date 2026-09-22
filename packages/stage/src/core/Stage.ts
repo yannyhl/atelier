@@ -16,6 +16,8 @@ export interface StageSystem {
 	/** Restore the initial state. Required for exact seek(t) back to 0. */
 	reset?( stage: Stage ): void;
 	setProfile?( profile: QualityProfile, stage: Stage ): void;
+	/** Named moments on the stage clock (capture choreography); exposed as window.__atelier.cues(). */
+	cues?(): Array<{ at: number; label?: string }>;
 }
 
 export interface StageOptions {
@@ -48,6 +50,7 @@ declare global {
 			ready: Promise<void>;
 			seek( t: number ): void;
 			stats(): Record<string, unknown>;
+			cues(): Array<{ at: number; label?: string }>;
 		};
 	}
 }
@@ -115,6 +118,7 @@ export class Stage extends Emitter<StageEvents> {
 		this.renderer.info.autoReset = false;
 
 		this.probe = probeTier( this.renderer.getContext() );
+		if ( this.probe.forced ) this.adaptive = false;
 		const tier = options.tier ?? ( this.capture ? 3 : this.probe.tier );
 		this.profile = PROFILES[ tier ];
 		this.viewport = this.measure();
@@ -137,6 +141,7 @@ export class Stage extends Emitter<StageEvents> {
 			ready: this.ready,
 			seek: ( t: number ) => this.seek( t ),
 			stats: () => this.stats(),
+			cues: () => this.systems.flatMap( ( s ) => s.cues?.() ?? [] ).sort( ( a, b ) => a.at - b.at ),
 		};
 
 	}
@@ -290,7 +295,8 @@ export class Stage extends Emitter<StageEvents> {
 			const verdict = this.monitor.sample( realDt * 1000 );
 			if ( verdict !== 0 ) {
 
-				const next = Math.max( 0, Math.min( 3, this.profile.tier + verdict ) ) as Tier;
+				// Runtime adaptation never goes below tier 1: tier 0 (static page) is decided at boot only.
+				const next = Math.max( 1, Math.min( 3, this.profile.tier + verdict ) ) as Tier;
 				this.monitor.reset();
 				this.setTier( next );
 

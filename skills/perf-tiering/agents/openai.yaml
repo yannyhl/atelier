@@ -1,0 +1,4 @@
+interface:
+  display_name: "Perf Tiering"
+  short_description: "Quality tiers, budgets and perf audits for the stage"
+  default_prompt: "Use $perf-tiering to audit this stage experience against its budgets and fix what is slow on low-end devices."

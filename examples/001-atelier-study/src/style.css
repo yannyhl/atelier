@@ -1,0 +1,418 @@
+@import '@fontsource/comfortaa/latin-700.css';
+@import '@fontsource/jura/latin-500.css';
+@import '@atelier/stage/dom/tokens.css';
+@import '@atelier/stage/dom/chrome.css';
+
+/* Noto Sans JP (OFL, see public/fonts/NotoSansJP-OFL.txt), subset by scripts/subset-font.py to the
+   characters the page actually uses: 8.9 KB instead of a 113 KB @font-face list and 60 KB chunks. */
+@font-face {
+	font-family: 'Noto Sans JP Subset';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('/fonts/noto-sans-jp-500-subset.woff2') format('woff2');
+}
+
+:root {
+	--at-font-display: 'Comfortaa', ui-rounded, system-ui, sans-serif;
+	--at-font-ui: 'Jura', ui-monospace, system-ui, sans-serif;
+	color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--at-black);
+	color: var(--at-white);
+	font-family: var(--at-font-ui);
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+a {
+	color: inherit;
+}
+
+/* ---------- Static mode (default, and the fallback) ---------- */
+
+.stage {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 1s var(--at-ease-out);
+}
+
+.section {
+	min-height: 100svh;
+	display: grid;
+	place-content: center;
+	justify-items: center;
+	gap: 1.5rem;
+	padding: 6rem var(--at-gutter);
+	text-align: center;
+}
+
+.section--arrival {
+	background:
+		radial-gradient(120% 80% at 30% 20%, var(--at-frost) 0%, transparent 60%),
+		linear-gradient(160deg, var(--at-ice) 0%, var(--at-ice-deep) 55%, var(--at-lime) 130%);
+	color: var(--at-slate);
+}
+
+.section--glass {
+	background: radial-gradient(90% 70% at 50% 40%, #1b2735 0%, #05070a 70%);
+}
+
+.section--paper {
+	background: #f3f1ec;
+	color: #1a1a1a;
+}
+
+.section--night {
+	background: radial-gradient(100% 60% at 50% 100%, #0e1430 0%, #000 70%);
+}
+
+.section--finale {
+	background: radial-gradient(100% 60% at 50% 100%, #20103a 0%, #000 70%);
+}
+
+.manifesto {
+	display: flex;
+	flex-direction: row-reverse;
+	gap: 1.4em;
+	margin: 0;
+	writing-mode: vertical-rl;
+	font-family: 'Noto Sans JP Subset', 'Hiragino Sans', 'Noto Sans CJK JP', var(--at-font-ui);
+	font-weight: 500;
+	font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+	letter-spacing: 0.3em;
+	line-height: 1.9;
+}
+
+.manifesto p {
+	position: relative;
+	margin: 0;
+}
+
+.section__lede--en {
+	max-width: 36ch;
+	opacity: 0.6;
+	line-height: 1.8;
+}
+
+.section__title {
+	margin: 0;
+	font-family: var(--at-font-display);
+	font-weight: 700;
+	font-size: clamp(2.5rem, 9vw, 7rem);
+	letter-spacing: 0.04em;
+	line-height: 1;
+	text-transform: lowercase;
+}
+
+.section__title--cta {
+	font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+	letter-spacing: var(--at-track-wide);
+	text-transform: uppercase;
+}
+
+.section__lede {
+	margin: 0;
+	display: grid;
+	gap: 0.4em;
+	font-size: clamp(0.8rem, 1.2vw, 1rem);
+	letter-spacing: var(--at-track-ui);
+	line-height: 1.8;
+}
+
+.rainbow {
+	background: linear-gradient(90deg, #ff4d6d, #ffb84d, #d9ff4d, #4dffb8, #4db8ff, #b84dff);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.8em;
+	padding: 0.9em 1.6em;
+	border-radius: 12px;
+	background: var(--at-lime);
+	color: var(--at-lime-ink);
+	font-family: var(--at-font-display);
+	font-weight: 700;
+	letter-spacing: var(--at-track-ui);
+	text-decoration: none;
+	text-transform: uppercase;
+	box-shadow:
+		inset 0 2px 0 var(--at-lime-rim),
+		inset 0 -3px 0 var(--at-lime-shade),
+		0 4px 0 var(--at-lime-drop),
+		0 8px 0 var(--at-lime-drop-deep);
+	transition: transform 0.15s var(--at-ease-out), box-shadow 0.15s var(--at-ease-out);
+}
+
+.cta:hover {
+	transform: translateY(-2px);
+}
+
+.cta:active {
+	transform: translateY(4px);
+	box-shadow:
+		inset 0 2px 0 var(--at-lime-rim),
+		inset 0 -3px 0 var(--at-lime-shade),
+		0 1px 0 var(--at-lime-drop),
+		0 2px 0 var(--at-lime-drop-deep);
+}
+
+.cta:focus-visible {
+	outline: 2px solid var(--at-white);
+	outline-offset: 4px;
+}
+
+.footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1.25rem var(--at-gutter);
+	font-size: 11px;
+	letter-spacing: var(--at-track-ui);
+	color: var(--at-dim);
+}
+
+.footer__dots {
+	display: none;
+}
+
+.footer__copy {
+	margin: 0;
+	text-transform: uppercase;
+}
+
+/* ---------- WebGL mode: set on <html> after the first frame renders ---------- */
+
+.is-webgl,
+.is-webgl body {
+	height: 100%;
+	overflow: hidden;
+	overscroll-behavior: none;
+}
+
+.is-webgl .app {
+	position: fixed;
+	inset: 0;
+	height: 100dvh;
+	touch-action: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+.is-ready .stage {
+	opacity: 1;
+}
+
+.loader {
+	display: none;
+}
+
+.is-webgl .loader {
+	position: absolute;
+	inset: 0;
+	z-index: 10;
+	display: grid;
+	place-items: center;
+	background: var(--at-black);
+	pointer-events: none;
+	transition: opacity var(--at-dur-exit) var(--at-ease-out);
+}
+
+.is-ready .loader {
+	opacity: 0;
+}
+
+/* Stills with ?ui=0: no chrome, no running copy. */
+.is-webgl.is-clean .footer,
+.is-webgl.is-clean .ring-slot,
+.is-webgl.is-clean .section__lede {
+	display: none;
+}
+
+/* Video capture starts on the first set, never on the loader. */
+.is-capture .loader {
+	display: none;
+}
+
+.loader__mark {
+	font-family: var(--at-font-display);
+	font-weight: 700;
+	font-size: 20px;
+	letter-spacing: var(--at-track-wide);
+	color: var(--at-white);
+	animation: at-breathe 1.6s var(--at-ease-out) infinite alternate;
+}
+
+@keyframes at-breathe {
+	from {
+		opacity: 0.25;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.is-webgl .sections {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.is-webgl .section {
+	position: absolute;
+	inset: 0;
+	min-height: 0;
+	background: none;
+	opacity: 0;
+	transition: opacity var(--at-dur-fade) var(--at-ease-out);
+}
+
+.is-webgl .section[data-visible='true'] {
+	opacity: 1;
+	pointer-events: auto;
+	transition-delay: 0.3s;
+}
+
+/* Titles are drawn in 3D or implied by the set; keep them for assistive tech and search. */
+.is-webgl .section:not(.section--finale) .section__title {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+.is-webgl .footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: env(safe-area-inset-bottom);
+	height: 60px;
+	padding-block: 0;
+	opacity: 0;
+	transition: opacity var(--at-dur-chrome) var(--at-ease-out);
+}
+
+.is-webgl.is-splashed .footer {
+	opacity: 1;
+}
+
+.is-webgl .footer__dots {
+	display: block;
+}
+
+.ring-slot {
+	display: none;
+}
+
+.is-webgl .ring-slot {
+	display: block;
+}
+
+.is-webgl:is([data-section='arrival'], [data-section='paper']) .footer,
+.is-webgl:is([data-section='arrival'], [data-section='paper']) .at-ring {
+	color: var(--at-slate);
+}
+
+.is-webgl:is([data-section='arrival'], [data-section='paper']) .at-dots__dot::after {
+	background: var(--at-slate);
+}
+
+.is-webgl:is([data-section='arrival'], [data-section='paper']) .at-dots__dot[data-state='ready']::after {
+	background: color-mix(in srgb, var(--at-slate) 45%, transparent);
+}
+
+.is-webgl .section--arrival,
+.is-webgl .section--glass,
+.is-webgl .section--paper {
+	align-content: end;
+	padding-bottom: 16vh;
+}
+
+.is-webgl .section--arrival {
+	color: var(--at-slate);
+	--at-reveal-color: var(--at-slate);
+}
+
+.is-webgl .section--paper {
+	background: none;
+	color: #1a1a1a;
+	--at-reveal-color: #1a1a1a;
+}
+
+.is-webgl .section--night {
+	justify-content: end;
+	align-content: center;
+	padding-right: 12vw;
+}
+
+.is-webgl .section--night .section__lede--en {
+	display: none;
+}
+
+.is-webgl .section--finale {
+	align-content: end;
+	padding-bottom: 12vh;
+}
+
+@media (max-width: 800px) {
+	.is-webgl .section--night {
+		justify-content: center;
+		align-content: start;
+		padding: 9vh var(--at-gutter) 0;
+	}
+
+	/* Keep the arrival copy clear of the SCROLL ring (56 px offset + 72 px ring + gap). */
+	.is-webgl .section--arrival {
+		padding-bottom: calc(148px + env(safe-area-inset-bottom));
+	}
+
+	.is-webgl .manifesto {
+		font-size: 0.8rem;
+		letter-spacing: 0.2em;
+		gap: 1em;
+		max-height: 34vh;
+	}
+}
+
+@media (max-width: 800px) {
+	.is-webgl .footer {
+		height: 50px;
+	}
+
+	.footer__copy {
+		display: none;
+	}
+
+	.is-webgl .footer {
+		justify-content: center;
+	}
+
+	.at-ring {
+		bottom: calc(56px + env(safe-area-inset-bottom));
+	}
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scroll Stage"
+  short_description: "Section-snapping scroll-driven WebGL pages on @atelier/stage"
+  default_prompt: "Use $scroll-stage to build or fix the scroll-driven, section-snapping WebGL page: page contract, scroller feel, sections, camera travel and accessibility."

@@ -1,5 +1,5 @@
 import {
-	Camera, HalfFloatType, LinearFilter, NoColorSpace, Scene, ShaderMaterial, Texture,
+	Camera, HalfFloatType, LinearFilter, NoColorSpace, SRGBColorSpace, Scene, ShaderMaterial, Texture,
 	UnsignedByteType, Vector2, WebGLRenderTarget, type WebGLRenderer,
 } from 'three';
 import { FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
@@ -118,18 +118,37 @@ export class PostFX {
 		this.dirt = tex;
 		this.compositeMaterial.uniforms.uDirtTex.value = tex;
 		this.compositeMaterial.uniforms.uHasDirt.value = !! tex;
+		this.fitDirt();
 
 	}
 
-	/** Animate toward a section's look. */
-	apply( animator: Animator, params: PostParams, duration = 1 ) {
+	/** Cover-fit the dirt texture to the screen so its blobs stay round on portrait phones. */
+	private fitDirt() {
 
-		for ( const key of Object.keys( params ) as Array<keyof PostParams> ) {
+		const img = this.dirt?.image as { width?: number; height?: number } | undefined;
+		const scale = this.compositeMaterial.uniforms.uDirtScale.value as Vector2;
+		if ( ! img?.width || ! img.height ) {
 
-			const v = params[ key ];
-			if ( v !== undefined ) void animator.animate( 'post.' + key, v, duration );
+			scale.set( 1, 1 );
+			return;
 
 		}
+
+		const screen = this.size.x / Math.max( 1, this.size.y );
+		const tex = img.width / img.height;
+		if ( screen > tex ) scale.set( 1, tex / screen );
+		else scale.set( screen / tex, 1 );
+
+	}
+
+	/**
+	 * Animate toward a section's look. The look is complete: parameters the section does not set
+	 * return to their defaults, so a section never inherits the previous section's post.
+	 */
+	apply( animator: Animator, params: PostParams, duration = 1 ) {
+
+		const look = { ...DEFAULTS, ...params };
+		for ( const key of Object.keys( look ) as Array<keyof PostParams> ) void animator.animate( 'post.' + key, look[ key ], duration );
 
 	}
 
@@ -139,16 +158,26 @@ export class PostFX {
 		this.disposeTargets();
 		this.profile = profile;
 
-		const type = profile.halfFloat && this.renderer.capabilities.isWebGL2 ? HalfFloatType : UnsignedByteType;
+		// Half float only where the device can render to it; otherwise 8-bit targets stored as sRGB,
+		// so linear values keep their precision in the darks instead of banding.
+		const ext = this.renderer.extensions;
+		const canHalf = ext.has( 'EXT_color_buffer_float' ) || ext.has( 'EXT_color_buffer_half_float' );
+		const half = profile.halfFloat && canHalf;
+		const type = half ? HalfFloatType : UnsignedByteType;
 		const rt = ( depth: boolean, t = type ) => new WebGLRenderTarget( 1, 1, {
 			type: t, depthBuffer: depth, stencilBuffer: false, generateMipmaps: false,
-			minFilter: LinearFilter, magFilter: LinearFilter, colorSpace: NoColorSpace,
+			minFilter: LinearFilter, magFilter: LinearFilter,
+			colorSpace: t === UnsignedByteType ? SRGBColorSpace : NoColorSpace,
 		} );
 
 		this.sceneRT = rt( true );
 		this.down = Array.from( { length: profile.bloomMips }, () => rt( false ) );
 		this.up = Array.from( { length: Math.max( 0, profile.bloomMips - 1 ) }, () => rt( false ) );
-		this.compositeRT = rt( false, UnsignedByteType );
+		// The composite writes display-encoded values itself, so its target stays raw 8-bit.
+		this.compositeRT = new WebGLRenderTarget( 1, 1, {
+			type: UnsignedByteType, depthBuffer: false, stencilBuffer: false, generateMipmaps: false,
+			minFilter: LinearFilter, magFilter: LinearFilter, colorSpace: NoColorSpace,
+		} );
 		this.opaqueRT = rt( false );
 		this.opaqueTexture.value = this.opaqueRT.texture;
 
@@ -161,6 +190,7 @@ export class PostFX {
 				uBloomTex: { value: null },
 				uDirtTex: { value: this.dirt },
 				uHasDirt: { value: !! this.dirt },
+				uDirtScale: { value: new Vector2( 1, 1 ) },
 				uBloomSize: { value: new Vector2( 1, 1 ) },
 				uHasBloom: { value: false },
 				uBloom: this.params.bloom,
@@ -218,6 +248,7 @@ export class PostFX {
 		} );
 		if ( this.down[ 0 ] ) this.compositeMaterial.uniforms.uBloomSize.value.set( this.down[ 0 ].width, this.down[ 0 ].height );
 
+		this.fitDirt();
 		this.smaa?.setSize( w, h );
 		this.fxaa?.setSize( w, h );
 

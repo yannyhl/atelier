@@ -1,9 +1,9 @@
 import { PerspectiveCamera, Scene, Vector3 } from 'three';
 import {
-	bindScrollInput, Choreography, PostFX, readCaptureParams, SectionDirector, SectionScroller, SectionTrack,
+	bindScrollInput, Choreography, warmUp, PostFX, readCaptureParams, SectionDirector, SectionScroller, SectionTrack,
 	Stage, trackPointer, type Cue,
 } from '@atelier/stage';
-import { lockDocumentAnimations, prepareReveal, ScrollRing, setRevealed, TimelineDots } from '@atelier/stage/dom';
+import { clearSectionDom, lockDocumentAnimations, prepareReveal, ScrollRing, setRevealed, TimelineDots } from '@atelier/stage/dom';
 import { createSkyDome, CursorTrail } from '@atelier/stage/effects';
 import { createGlass } from './sections/glass';
 import { createIntro } from './sections/intro';
@@ -15,6 +15,8 @@ const yieldToMain = () => new Promise<void>( ( r ) => setTimeout( r, 0 ) );
 
 export async function boot() {
 
+	// Separate the chunk's parse/eval task from WebGL context creation.
+	await yieldToMain();
 	const html = document.documentElement;
 	const canvas = document.getElementById( 'stage' ) as HTMLCanvasElement;
 	const capture = readCaptureParams();
@@ -24,6 +26,7 @@ export async function boot() {
 
 		console.warn( `[atelier] static fallback: ${reason}` );
 		html.classList.remove( 'is-webgl', 'is-ready', 'is-splashed' );
+		clearSectionDom();
 		stage.dispose();
 
 	};
@@ -109,6 +112,7 @@ export async function boot() {
 
 	if ( capture ) {
 
+		html.classList.add( 'is-capture' );
 		post.grainScale = 0.25;
 		const lock = lockDocumentAnimations( stage );
 		const cues: Cue[] = [
@@ -148,6 +152,8 @@ export async function boot() {
 	await yieldToMain();
 	await stage.renderer.compileAsync( scene, camera );
 	await yieldToMain();
+	// Warm-up: first draws of each set in their own task, so no single task blocks input for long.
+	await warmUp( bundles.map( ( b ) => b.root ), () => post.render( scene, camera ), yieldToMain );
 	camera.layers.set( 0 );
 	director.reset();
 	stage.reset();

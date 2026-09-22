@@ -1,0 +1,12 @@
+{
+  "id": "NNN",
+  "title": "short human title",
+  "origin": "atelier",
+  "date": "YYYY-MM-DD",
+  "kind": "website + teaser video",
+  "status": "Proposed",
+  "dna": [ "junni-loanmeme" ],
+  "skills": [ "atelier-director", "scroll-stage", "uniform-animator", "postfx-bloom-dirt", "perf-tiering", "deterministic-render" ],
+  "path": "work/NNN-slug/",
+  "summary": "One sentence: what it is and the headline result (sections, payload, gates)."
+}

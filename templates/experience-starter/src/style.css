@@ -201,6 +201,11 @@ a {
 	opacity: 0;
 }
 
+/* Video capture starts on the first set, never on the loader. */
+.is-capture .loader {
+	display: none;
+}
+
 .loader__mark {
 	font-family: var(--at-font-display);
 	font-weight: 700;
@@ -243,6 +248,7 @@ a {
 
 .is-webgl .section--intro {
 	color: var(--at-slate);
+	--at-reveal-color: var(--at-slate);
 	align-content: end;
 	padding-bottom: 22vh;
 }

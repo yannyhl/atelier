@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stills and Posters"
+  short_description: "OG images, X headers and key art from stage scenes"
+  default_prompt: "Use $stills-and-posters to render an OG image, X header or poster from this stage scene with a manifest entry."

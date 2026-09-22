@@ -7,11 +7,11 @@ export class TimelineDots {
 	readonly el: HTMLOListElement;
 	private dots: HTMLButtonElement[] = [];
 
-	constructor( parent: HTMLElement, labels: string[], onSelect: ( index: number ) => void ) {
+	constructor( parent: HTMLElement, labels: string[], onSelect: ( index: number ) => void, listLabel = 'Sections' ) {
 
 		this.el = document.createElement( 'ol' );
 		this.el.className = 'at-dots';
-		this.el.setAttribute( 'aria-label', 'Sections' );
+		this.el.setAttribute( 'aria-label', listLabel );
 
 		labels.forEach( ( label, i ) => {
 

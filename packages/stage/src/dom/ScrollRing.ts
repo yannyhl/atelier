@@ -7,13 +7,13 @@ export class ScrollRing {
 	readonly el: HTMLButtonElement;
 	private fill: HTMLElement;
 
-	constructor( parent: HTMLElement, label = 'SCROLL', onClick?: () => void ) {
+	constructor( parent: HTMLElement, label = 'SCROLL', onClick?: () => void, ariaLabel = 'Next section' ) {
 
 		const el = document.createElement( 'button' );
 		el.type = 'button';
 		el.className = 'at-ring';
 		el.dataset.visible = 'false';
-		el.setAttribute( 'aria-label', 'Next section' );
+		el.setAttribute( 'aria-label', ariaLabel );
 		el.innerHTML = `
 			<span class="at-ring__fill"></span>
 			<svg class="at-ring__spin" viewBox="0 0 200 200" fill="none" aria-hidden="true">

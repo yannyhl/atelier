@@ -1,0 +1,21 @@
+{
+  "file": "teaser-vertical.mp4",
+  "url": "http://localhost:4174/",
+  "width": 1080,
+  "height": 1920,
+  "cssWidth": 360,
+  "cssHeight": 640,
+  "dpr": 3,
+  "fps": 30,
+  "durationInSeconds": 30,
+  "frames": 900,
+  "codec": "h264",
+  "pixelFormat": "yuv420p",
+  "colorSpace": "bt709",
+  "crf": 18,
+  "bytes": 12799435,
+  "sha256": "b1f70fa2380e1be39a5c3ea8b5609a7609764151488d4b65899729b9448a32be",
+  "renderSeconds": 78,
+  "consoleErrors": [],
+  "renderedAt": "2026-09-22T21:09:30.480Z"
+}

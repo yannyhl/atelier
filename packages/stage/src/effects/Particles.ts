@@ -15,6 +15,13 @@ export interface ParticleOptions {
 	pointSize?: number;
 	/** 'snow' drifts and falls, 'sparks' streams toward the camera. */
 	mode?: 'snow' | 'sparks';
+	/** Linear RGB, default white. */
+	color?: [ number, number, number ];
+	/**
+	 * Share a uniform holding the canvas pixel ratio so point sizes stay the same in CSS pixels
+	 * on every screen. Omit to size in device pixels (the look is then tuned per DPR).
+	 */
+	pixelRatio?: { value: number };
 }
 
 /**
@@ -38,6 +45,8 @@ export function createParticles( o: ParticleOptions ) {
 			uBox: { value: o.size ?? [ 12, 8, 12 ] },
 			uSpeed: { value: o.speed ?? - 0.35 },
 			uPointSize: { value: o.pointSize ?? 18 },
+			uColor: { value: o.color ?? [ 1, 1, 1 ] },
+			uPixelRatio: o.pixelRatio ?? { value: 1 },
 		},
 		vertexShader: GLSL.common + /* glsl */`
 			attribute vec4 aSeed;
@@ -45,6 +54,7 @@ export function createParticles( o: ParticleOptions ) {
 			uniform vec3 uBox;
 			uniform float uSpeed;
 			uniform float uPointSize;
+			uniform float uPixelRatio;
 			varying float vFade;
 			varying float vSeed;
 			void main() {
@@ -57,7 +67,7 @@ export function createParticles( o: ParticleOptions ) {
 				#endif
 				vec4 mv = modelViewMatrix * vec4( p, 1.0 );
 				gl_Position = projectionMatrix * mv;
-				gl_PointSize = uPointSize * ( 0.4 + aSeed.w ) / max( - mv.z, 0.1 );
+				gl_PointSize = uPointSize * uPixelRatio * ( 0.4 + aSeed.w ) / max( - mv.z, 0.1 );
 				vec3 edge = abs( p / ( uBox * 0.5 ) );
 				vFade = 1.0 - smoothstep( 0.8, 1.0, max( edge.x, max( edge.y, edge.z ) ) );
 				vSeed = aSeed.w;
@@ -65,12 +75,13 @@ export function createParticles( o: ParticleOptions ) {
 		`,
 		fragmentShader: /* glsl */`
 			uniform float uVisibility;
+			uniform vec3 uColor;
 			varying float vFade;
 			varying float vSeed;
 			void main() {
 				vec2 c = gl_PointCoord * 2.0 - 1.0;
 				float a = smoothstep( 1.0, 0.2, length( c ) ) * vFade * uVisibility * ( 0.5 + vSeed * 0.5 );
-				gl_FragColor = vec4( vec3( a ), 1.0 );
+				gl_FragColor = vec4( uColor * a, 1.0 );
 			}
 		`,
 		transparent: true,

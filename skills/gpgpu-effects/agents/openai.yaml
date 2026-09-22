@@ -1,0 +1,4 @@
+interface:
+  display_name: "GPGPU Effects"
+  short_description: "Trail, particles, sky, pop-ins and a GPU crowd"
+  default_prompt: "Use $gpgpu-effects to add or tune the cursor trail, particles, sky looks, prop pop-ins or the GPU crowd in this scene."

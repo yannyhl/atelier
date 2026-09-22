@@ -1,0 +1,4 @@
+interface:
+  display_name: "Character Studio Shading"
+  short_description: "Blender to studio-lit, choreographed hero character"
+  default_prompt: "Use $character-studio-shading to author, export, light and choreograph the hero character for this experience."

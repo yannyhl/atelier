@@ -1,4 +1,4 @@
-import { BackSide, Color, Mesh, ShaderMaterial, SphereGeometry } from 'three';
+import { BackSide, Color, LinearSRGBColorSpace, Mesh, ShaderMaterial, SphereGeometry } from 'three';
 import type { Tween } from '../motion/Animator';
 import { GLSL } from './chunks';
 
@@ -19,7 +19,9 @@ export interface SkyLook {
 export function createSkyDome( looks: SkyLook[], weights: Tween<number[]>, time: Tween<number>, radius = 100 ) {
 
 	const n = looks.length;
-	const col = ( hex: string ) => new Color( hex );
+	// Keep the raw sRGB components: the gradient is mixed in display space (like CSS and the reference)
+	// and converted to linear once at the end. new Color( hex ) would convert here and again in GLSL.
+	const col = ( hex: string ) => new Color().setStyle( hex, LinearSRGBColorSpace );
 
 	const material = new ShaderMaterial( {
 		defines: { LOOKS: n },
@@ -56,8 +58,10 @@ export function createSkyDome( looks: SkyLook[], weights: Tween<number[]>, time:
 					float phase = uTime * 0.25 + d.x * 1.5 + d.y * 2.0;
 					c = mix( c, atIceGradient( phase, h ), 0.85 );
 				} else if ( uStyle[ i ] > 1.5 ) {
+					// Horizon glow that varies smoothly with heading, never repeating within one view.
 					float band = exp( - abs( d.y ) * 9.0 );
-					c += accent * band * ( 0.6 + 0.4 * sin( d.x * 20.0 + uTime ) );
+					float heading = atan( d.z, d.x );
+					c += accent * band * ( 0.55 + 0.25 * sin( heading * 2.0 + uTime * 0.15 ) + 0.2 * sin( heading * 5.0 - uTime * 0.1 ) );
 				}
 				return c;
 			}

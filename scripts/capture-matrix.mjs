@@ -42,7 +42,7 @@ for ( const name of names ) {
 
 			const staged = await waitForStage( page );
 			await page.waitForTimeout( settle );
-			const count = Number( a.sections ?? ( await page.evaluate( () => document.querySelectorAll( '[data-section]' ).length ) ) );
+			const count = Number( a.sections ?? ( await page.evaluate( () => document.querySelectorAll( 'body [data-section]' ).length ) ) );
 			run.stats = staged ? await page.evaluate( () => window.__atelier.stats() ) : null;
 
 			for ( let i = 0; i < count; i ++ ) {

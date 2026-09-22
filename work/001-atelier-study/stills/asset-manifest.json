@@ -1,0 +1,34 @@
+[
+  {
+    "file": "og.png",
+    "width": 1200,
+    "height": 630,
+    "mode": "RGB",
+    "transparency": false,
+    "transparentPixels": 0,
+    "partialAlphaPixels": 0,
+    "opaquePixels": 756000,
+    "bytes": 679274,
+    "sha256": "f3a3e47ff5e79bddd2c2453a7526ec15f3151e90db93e372e86aa73cfab494a3",
+    "format": "png",
+    "tool": "atelier skills/stills-and-posters/scripts/render-still.mjs (Playwright Chromium, CDP screenshot)",
+    "source": {
+      "url": "http://localhost:4174/?ui=0&capture=1&w=1200&h=630&dpr=1",
+      "t": 3.5,
+      "frame": 105,
+      "fps": 30,
+      "cue": "arrival",
+      "cueAt": 0,
+      "after": 3.5
+    },
+    "capture": {
+      "cssWidth": 1200,
+      "cssHeight": 630,
+      "dpr": 1,
+      "tier": 3,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)"
+    },
+    "renderedAt": "2026-09-22T21:11:11.533Z",
+    "consoleErrors": []
+  }
+]

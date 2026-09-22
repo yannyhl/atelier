@@ -27,8 +27,8 @@ export async function createIntro( { stage, camera }: SectionContext ): Promise<
 	const shapes = [
 		{ mesh: new Mesh( new SphereGeometry( 0.32, 48, 24 ), lime ), at: new Vector3( - 2.6, 1.3, - 0.8 ), portrait: new Vector3( - 0.9, 2.3, - 0.8 ) },
 		{ mesh: new Mesh( new TorusGeometry( 0.34, 0.12, 24, 64 ), ice ), at: new Vector3( 2.5, 1.1, - 0.4 ), portrait: new Vector3( 1.0, 1.7, - 0.4 ) },
-		{ mesh: new Mesh( new SphereGeometry( 0.2, 32, 16 ), ice ), at: new Vector3( 1.9, - 0.9, 0.3 ), portrait: new Vector3( 0.8, - 1.1, 0.3 ) },
-		{ mesh: new Mesh( new TorusGeometry( 0.22, 0.08, 20, 48 ), lime ), at: new Vector3( - 2.1, - 0.8, 0.2 ), portrait: new Vector3( - 0.7, - 1.6, 0.2 ) },
+		{ mesh: new Mesh( new SphereGeometry( 0.2, 32, 16 ), ice ), at: new Vector3( 1.9, - 0.9, 0.3 ), portrait: new Vector3( 1.0, - 0.55, 0.3 ) },
+		{ mesh: new Mesh( new TorusGeometry( 0.22, 0.08, 20, 48 ), lime ), at: new Vector3( - 2.1, - 0.8, 0.2 ), portrait: new Vector3( - 1.0, - 0.8, 0.2 ) },
 	];
 	const place = new Vector3();
 	shapes.forEach( ( s ) => root.add( s.mesh ) );
@@ -46,7 +46,7 @@ export async function createIntro( { stage, camera }: SectionContext ): Promise<
 			name: 'intro',
 			label: 'Intro',
 			root,
-			post: { bloom: 0.25, vignette: 0.7, grain: 0.03 },
+			post: { bloom: 0.25, vignette: 0.7, grain: 0.03, threshold: 0.85 },
 			shot: { position: new Vector3( 0, 0.2, 6.2 ), target: new Vector3( 0, 0.15, 0 ), fov: 36, portraitFov: 26, parallax: undefined },
 			enter() {
 

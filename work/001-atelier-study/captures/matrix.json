@@ -1,0 +1,338 @@
+{
+  "url": "http://localhost:4174/",
+  "capturedAt": "2026-09-22T20:55:14.156Z",
+  "runs": [
+    {
+      "viewport": "phone",
+      "mode": "webgl",
+      "shots": [
+        "phone-s00.png",
+        "phone-s01.png",
+        "phone-s02.png",
+        "phone-s03.png",
+        "phone-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 2,
+        "probe": {
+          "tier": 2,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [],
+          "mobile": true
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1.5,
+          "pixelWidth": 585,
+          "pixelHeight": 1266,
+          "aspect": 0.46208530805687204,
+          "portraitWeight": 1
+        },
+        "time": 2.966666666666667,
+        "calls": 32,
+        "triangles": 35414,
+        "geometries": 14,
+        "textures": 19,
+        "programs": 24
+      }
+    },
+    {
+      "viewport": "phone",
+      "mode": "reduced",
+      "shots": [
+        "phone-reduced-s00.png",
+        "phone-reduced-s01.png",
+        "phone-reduced-s02.png",
+        "phone-reduced-s03.png",
+        "phone-reduced-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 2,
+        "probe": {
+          "tier": 2,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [],
+          "mobile": true
+        },
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "dpr": 1.5,
+          "pixelWidth": 585,
+          "pixelHeight": 1266,
+          "aspect": 0.46208530805687204,
+          "portraitWeight": 1
+        },
+        "time": 3.0166666666666666,
+        "calls": 32,
+        "triangles": 35414,
+        "geometries": 14,
+        "textures": 19,
+        "programs": 24
+      }
+    },
+    {
+      "viewport": "phone",
+      "mode": "static",
+      "shots": [
+        "phone-static.png"
+      ],
+      "errors": [],
+      "webgl": false
+    },
+    {
+      "viewport": "tablet",
+      "mode": "webgl",
+      "shots": [
+        "tablet-s00.png",
+        "tablet-s01.png",
+        "tablet-s02.png",
+        "tablet-s03.png",
+        "tablet-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 2,
+        "probe": {
+          "tier": 2,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [],
+          "mobile": true
+        },
+        "viewport": {
+          "width": 768,
+          "height": 1024,
+          "dpr": 1.5,
+          "pixelWidth": 1152,
+          "pixelHeight": 1536,
+          "aspect": 0.75,
+          "portraitWeight": 0.8043478260869565
+        },
+        "time": 3.033333333333333,
+        "calls": 32,
+        "triangles": 35414,
+        "geometries": 14,
+        "textures": 19,
+        "programs": 24
+      }
+    },
+    {
+      "viewport": "tablet",
+      "mode": "reduced",
+      "shots": [
+        "tablet-reduced-s00.png",
+        "tablet-reduced-s01.png",
+        "tablet-reduced-s02.png",
+        "tablet-reduced-s03.png",
+        "tablet-reduced-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 2,
+        "probe": {
+          "tier": 2,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [],
+          "mobile": true
+        },
+        "viewport": {
+          "width": 768,
+          "height": 1024,
+          "dpr": 1.5,
+          "pixelWidth": 1152,
+          "pixelHeight": 1536,
+          "aspect": 0.75,
+          "portraitWeight": 0.8043478260869565
+        },
+        "time": 3.0166666666666666,
+        "calls": 32,
+        "triangles": 35414,
+        "geometries": 14,
+        "textures": 19,
+        "programs": 24
+      }
+    },
+    {
+      "viewport": "tablet",
+      "mode": "static",
+      "shots": [
+        "tablet-static.png"
+      ],
+      "errors": [],
+      "webgl": false
+    },
+    {
+      "viewport": "laptop",
+      "mode": "webgl",
+      "shots": [
+        "laptop-s00.png",
+        "laptop-s01.png",
+        "laptop-s02.png",
+        "laptop-s03.png",
+        "laptop-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 3,
+        "probe": {
+          "tier": 3,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [
+            "high-end desktop gpu"
+          ],
+          "mobile": false
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 2,
+          "pixelWidth": 2880,
+          "pixelHeight": 1800,
+          "aspect": 1.6,
+          "portraitWeight": 0.13913043478260856
+        },
+        "time": 2.9833333333333334,
+        "calls": 37,
+        "triangles": 37704,
+        "geometries": 15,
+        "textures": 26,
+        "programs": 28
+      }
+    },
+    {
+      "viewport": "laptop",
+      "mode": "reduced",
+      "shots": [
+        "laptop-reduced-s00.png",
+        "laptop-reduced-s01.png",
+        "laptop-reduced-s02.png",
+        "laptop-reduced-s03.png",
+        "laptop-reduced-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 3,
+        "probe": {
+          "tier": 3,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [
+            "high-end desktop gpu"
+          ],
+          "mobile": false
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "dpr": 2,
+          "pixelWidth": 2880,
+          "pixelHeight": 1800,
+          "aspect": 1.6,
+          "portraitWeight": 0.13913043478260856
+        },
+        "time": 3,
+        "calls": 37,
+        "triangles": 37704,
+        "geometries": 15,
+        "textures": 26,
+        "programs": 28
+      }
+    },
+    {
+      "viewport": "laptop",
+      "mode": "static",
+      "shots": [
+        "laptop-static.png"
+      ],
+      "errors": [],
+      "webgl": false
+    },
+    {
+      "viewport": "desktop",
+      "mode": "webgl",
+      "shots": [
+        "desktop-s00.png",
+        "desktop-s01.png",
+        "desktop-s02.png",
+        "desktop-s03.png",
+        "desktop-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 3,
+        "probe": {
+          "tier": 3,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [
+            "high-end desktop gpu"
+          ],
+          "mobile": false
+        },
+        "viewport": {
+          "width": 2560,
+          "height": 1440,
+          "dpr": 1,
+          "pixelWidth": 2560,
+          "pixelHeight": 1440,
+          "aspect": 1.7777777777777777,
+          "portraitWeight": 0
+        },
+        "time": 3.0166666666666666,
+        "calls": 37,
+        "triangles": 37704,
+        "geometries": 15,
+        "textures": 26,
+        "programs": 28
+      }
+    },
+    {
+      "viewport": "desktop",
+      "mode": "reduced",
+      "shots": [
+        "desktop-reduced-s00.png",
+        "desktop-reduced-s01.png",
+        "desktop-reduced-s02.png",
+        "desktop-reduced-s03.png",
+        "desktop-reduced-s04.png"
+      ],
+      "errors": [],
+      "stats": {
+        "tier": 3,
+        "probe": {
+          "tier": 3,
+          "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+          "reasons": [
+            "high-end desktop gpu"
+          ],
+          "mobile": false
+        },
+        "viewport": {
+          "width": 2560,
+          "height": 1440,
+          "dpr": 1,
+          "pixelWidth": 2560,
+          "pixelHeight": 1440,
+          "aspect": 1.7777777777777777,
+          "portraitWeight": 0
+        },
+        "time": 3.0166666666666666,
+        "calls": 37,
+        "triangles": 37704,
+        "geometries": 15,
+        "textures": 26,
+        "programs": 28
+      }
+    },
+    {
+      "viewport": "desktop",
+      "mode": "static",
+      "shots": [
+        "desktop-static.png"
+      ],
+      "errors": [],
+      "webgl": false
+    }
+  ]
+}

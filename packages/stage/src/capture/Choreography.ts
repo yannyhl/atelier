@@ -15,27 +15,33 @@ export interface Cue {
 export class Choreography implements StageSystem {
 
 	private fired = 0;
-	private cues: Cue[];
+	private cuesSorted: Cue[];
 	private t = 0;
 
 	constructor( cues: Cue[], public pointer?: ( t: number ) => [ number, number ], private onPointer?: ( x: number, y: number ) => void ) {
 
-		this.cues = cues.slice().sort( ( a, b ) => a.at - b.at );
+		this.cuesSorted = cues.slice().sort( ( a, b ) => a.at - b.at );
+
+	}
+
+	cues() {
+
+		return this.cuesSorted.map( ( c ) => ( { at: c.at, label: c.label } ) );
 
 	}
 
 	get duration() {
 
-		return this.cues.length ? this.cues[ this.cues.length - 1 ].at : 0;
+		return this.cuesSorted.length ? this.cuesSorted[ this.cuesSorted.length - 1 ].at : 0;
 
 	}
 
 	update( dt: number, stage: Stage ) {
 
 		this.t += dt;
-		while ( this.fired < this.cues.length && this.cues[ this.fired ].at <= this.t + 1e-9 ) {
+		while ( this.fired < this.cuesSorted.length && this.cuesSorted[ this.fired ].at <= this.t + 1e-9 ) {
 
-			this.cues[ this.fired ++ ].run( stage );
+			this.cuesSorted[ this.fired ++ ].run( stage );
 
 		}
 

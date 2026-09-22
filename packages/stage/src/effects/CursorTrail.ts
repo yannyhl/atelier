@@ -1,6 +1,5 @@
 import {
-	AdditiveBlending, CylinderGeometry, DataTexture, FloatType, Mesh, NearestFilter,
-	RGBAFormat, ShaderMaterial, Vector3,
+	CylinderGeometry, DataTexture, FloatType, Mesh, NearestFilter, RGBAFormat, ShaderMaterial, Vector3,
 } from 'three';
 import type { Stage, StageSystem } from '../core/Stage';
 import type { Tween } from '../motion/Animator';
@@ -15,12 +14,18 @@ export interface TrailOptions {
 	follow?: number;
 	/** 0 = white, 1 = rainbow. */
 	rainbow?: Tween<number>;
+	/**
+	 * 0 = glowing color (for dark sets), 1 = dark ink (for light or paper sets, where a glow would
+	 * saturate to a white smear). Tween it per section, like the reference's per-section trail looks.
+	 */
+	ink?: Tween<number>;
 }
 
 /**
  * The cursor trail: a chain of points where point 0 is the cursor and every other point eases
  * toward its predecessor, drawn as one tube whose thickness grows with speed.
  * CPU chain + float DataTexture (cheaper than GPGPU at this size, works everywhere, deterministic).
+ * Normal alpha blending (not additive) so the `ink` look can draw dark lines on light sets.
  * Desktop only: do not add it on coarse-pointer devices.
  */
 export class CursorTrail implements StageSystem {
@@ -51,6 +56,7 @@ export class CursorTrail implements StageSystem {
 				uTime: o.time,
 				uRadius: { value: o.radius ?? 0.05 },
 				uRainbow: o.rainbow ?? { value: 1 },
+				uInk: o.ink ?? { value: 0 },
 			},
 			vertexShader: GLSL.common + /* glsl */`
 				uniform sampler2D uChain;
@@ -83,15 +89,20 @@ export class CursorTrail implements StageSystem {
 			fragmentShader: GLSL.common + /* glsl */`
 				uniform float uTime;
 				uniform float uRainbow;
+				uniform float uInk;
 				varying float vT;
 				varying float vSpeed;
 				void main() {
 					vec3 rainbow = atHsv2rgb( vec3( fract( vT * 0.8 - uTime * 0.3 ), 0.75, 1.0 ) );
-					vec3 c = mix( vec3( 1.0 ), rainbow, uRainbow ) * 1.6;
-					gl_FragColor = vec4( c * smoothstep( 0.0, 0.05, vSpeed ), 1.0 );
+					// Over 1.0 so the bloom pass picks the glow up; ink is a near-black line.
+					vec3 glow = mix( vec3( 1.0 ), rainbow, uRainbow ) * 1.6;
+					vec3 c = mix( glow, vec3( 0.012 ), uInk );
+					float a = smoothstep( 0.0, 0.05, vSpeed );
+					if ( a < 0.01 ) discard;
+					gl_FragColor = vec4( c, a );
 				}
 			`,
-			blending: AdditiveBlending,
+			transparent: true,
 			depthWrite: false,
 		} );
 
@@ -117,6 +128,26 @@ export class CursorTrail implements StageSystem {
 
 		}
 
+		this.texture.needsUpdate = true;
+
+	}
+
+	/**
+	 * Move the whole chain (and head) by `delta`. Call it with the camera's per-step movement so the
+	 * trail lives in view space: without it, camera travel between sets stretches it across the frame.
+	 */
+	shift( delta: Vector3 ) {
+
+		if ( delta.lengthSq() === 0 ) return;
+		for ( let i = 0; i < this.count; i ++ ) {
+
+			this.data[ i * 4 ] += delta.x;
+			this.data[ i * 4 + 1 ] += delta.y;
+			this.data[ i * 4 + 2 ] += delta.z;
+
+		}
+
+		this.head.add( delta );
 		this.texture.needsUpdate = true;
 
 	}

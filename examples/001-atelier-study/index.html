@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#000000" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<title>Pip and the door past the page</title>
+		<meta name="description" content="An atelier study: a small plush explorer travels through five sets looking for a door past the page." />
+		<meta property="og:title" content="Pip and the door past the page" />
+		<meta property="og:description" content="An atelier study in scroll-driven WebGL." />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="/og.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<link rel="preload" href="/models/mascot.glb" as="fetch" type="model/gltf-binary" crossorigin />
+		<script>
+			// Opt into stage layout before first paint so the WebGL upgrade causes no layout shift.
+			try {
+				if ( ! /[?&]static\b/.test( location.search ) && document.createElement( 'canvas' ).getContext( 'webgl2' ) ) document.documentElement.classList.add( 'is-webgl' );
+			} catch ( e ) {}
+		</script>
+	</head>
+	<body>
+		<div class="app" id="app">
+			<canvas class="stage" id="stage" aria-hidden="true"></canvas>
+			<div class="loader" aria-hidden="true"><span class="loader__mark">pip</span></div>
+
+			<main class="sections">
+				<section class="section section--arrival" data-section="arrival" aria-labelledby="arrival-title">
+					<h1 class="section__title" id="arrival-title">pip</h1>
+					<p class="section__lede" data-reveal>
+						<span data-reveal-line>Somewhere past the edge of the page,</span>
+						<span data-reveal-line>a small plush explorer is looking for a door.</span>
+					</p>
+				</section>
+
+				<section class="section section--glass" data-section="glass" aria-labelledby="glass-title">
+					<h2 class="section__title" id="glass-title">Clear</h2>
+					<p class="section__lede" data-reveal>
+						<span data-reveal-line>Hold still long enough and you turn to glass.</span>
+						<span data-reveal-line>Everything behind you bends into color.</span>
+					</p>
+				</section>
+
+				<section class="section section--paper" data-section="paper" aria-labelledby="paper-title">
+					<h2 class="section__title" id="paper-title">Sketch</h2>
+					<p class="section__lede" data-reveal>
+						<span data-reveal-line>Every world starts as a line on paper.</span>
+					</p>
+				</section>
+
+				<section class="section section--night" data-section="night" aria-labelledby="night-title">
+					<h2 class="section__title" id="night-title">Night</h2>
+					<div class="manifesto at-reveal--vertical" data-reveal lang="ja">
+						<p data-reveal-line>ページの向こう側に、</p>
+						<p data-reveal-line>まだ誰も開けていない扉がある。</p>
+						<p data-reveal-line>動くものだけが、そこへ行ける。</p>
+					</div>
+					<p class="section__lede section__lede--en">Past the page there is a door no one has opened. Only things that move can reach it.</p>
+				</section>
+
+				<section class="section section--finale" data-section="finale" aria-labelledby="finale-title">
+					<h2 class="section__title section__title--cta" id="finale-title">Come build <span class="rainbow" data-rainbow>with us</span></h2>
+					<a class="cta" href="https://github.com/yannyhl" rel="noopener">Open the door</a>
+				</section>
+			</main>
+
+			<footer class="footer">
+				<div class="footer__dots" id="dots"></div>
+				<p class="footer__copy">&copy; 2026 atelier study 001</p>
+			</footer>
+			<div class="ring-slot" id="ring"></div>
+		</div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>

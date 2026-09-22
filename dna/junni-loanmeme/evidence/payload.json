@@ -1,0 +1,42 @@
+{
+  "measuredAt": "2026-09-22",
+  "url": "https://loanmeme.io/",
+  "note": "Bytes streamed per asset (Cloudflare omits Content-Length on HEAD).",
+  "document": { "index.html": 20830, "css/style.css": 24848, "js/script.js": 1210876, "js/script.js (br/gzip transfer)": 291516 },
+  "assets": {
+    "scene/common.glb": 3339600,
+    "scene/section_4.glb": 1939552,
+    "scene/loanMeme.glb": 1913716,
+    "scene/section_2.glb": 861280,
+    "scene/section_1.glb": 608724,
+    "textures/random.webp": 250040,
+    "ogp.jpg": 237943,
+    "scene/section_6.glb": 226832,
+    "textures/humans/human.webp": 213914,
+    "scene/section_3.glb": 187388,
+    "textures/noise.webp": 131748,
+    "envmap/sec2 (6 faces)": 111000,
+    "textures/illust.webp": 74702,
+    "textures/display.webp": 73098,
+    "baku_0..5.webp (6 files)": 59000,
+    "lm_logo2.webp": 50600,
+    "outro.webp": 31586,
+    "textures/lens-dirt.webp": 30118,
+    "textures/outro-text.webp": 27474,
+    "textures/sec2-bg-text.webp": 19870,
+    "textures/matcap_orange.webp": 9394,
+    "textures/pattern.webp": 9240,
+    "textures/signpen.webp": 4508,
+    "textures/matcap.webp": 3388,
+    "scene/section_5.glb": 1180,
+    "fonts/gumball.webp": 1038,
+    "textures/grid.webp": 984
+  },
+  "assetsTotal": 10417607,
+  "glb": {
+    "common.glb": { "generator": "Khronos glTF Blender I/O v5.0.21", "extensions": [ "EXT_texture_webp" ], "meshes": 16, "materials": 7, "triangles": 22800, "note": "1.0 MB PNG roughness map embedded; blocks first render" },
+    "loanMeme.glb": { "extensions": [ "KHR_materials_clearcoat", "KHR_materials_specular", "KHR_materials_sheen", "EXT_texture_webp" ], "meshes": 3, "triangles": 11300, "joints": 13, "clips": [ "section_1", "section_3", "section_4", "section_4_jump", "section_5", "section_6" ] }
+  },
+  "compression": { "draco": false, "meshopt": false, "ktx2": false },
+  "fonts": { "loaded": [ "Bebas Neue", "Noto Sans", "Noto Sans JP", "Jura", "Noto Serif", "Comfortaa", "Roboto Serif", "Roboto" ], "unused": [ "Bebas Neue", "Noto Serif" ] }
+}

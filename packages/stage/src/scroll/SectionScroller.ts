@@ -15,7 +15,8 @@ export interface ScrollerEvents extends Record<string, unknown> {
  * `value` is a float in section units, 0..count-1. The page never scrolls natively.
  * Between inputs a spring pulls `value` toward `round(value +/- 0.45)`, biased by the direction
  * of travel, so a small flick commits to the next section and a tiny nudge falls back.
- * Constants are the reference values tuned at 60 Hz; the fixed step keeps them valid at any refresh rate.
+ * Constants are the reference values tuned at 60 Hz; per-step factors are scaled by dt, so the feel is
+ * the same at any clock rate and any display refresh rate.
  */
 export class SectionScroller extends Emitter<ScrollerEvents> {
 
@@ -111,12 +112,14 @@ export class SectionScroller extends Emitter<ScrollerEvents> {
 
 			this.target = Math.max( 0, Math.min( this.count - 1, this.target ) );
 
+			// Reference constants per 60 Hz frame; `k` rescales the per-frame terms to this step.
+			const k = dt * 60;
 			const gravity = this.target - this.value;
 			this.velocityVelocity += gravity * dt * 0.3;
-			this.velocityVelocity *= 0.86 * ( 1 - dt * 2 );
+			this.velocityVelocity *= Math.pow( 0.86, k ) * ( 1 - dt * 2 );
 			this.velocity += this.velocityVelocity * 10 * dt;
-			this.velocity *= 1 - dt * 8;
-			this.value += this.velocity;
+			this.velocity *= Math.pow( 1 - ( 1 / 60 ) * 8, k );
+			this.value += this.velocity * k;
 
 		}
 
@@ -191,7 +194,10 @@ export class SectionScroller extends Emitter<ScrollerEvents> {
 
 	}
 
-	/** Jump without animation (seek, deep links). */
+	/** True only while `jump()` emits, so listeners (the director) can apply the change instantly. */
+	jumping = false;
+
+	/** Jump without animation (seek, deep links). Section looks switch instantly too. */
 	jump( section: number ) {
 
 		this.tween.set( 'value', section );
@@ -200,7 +206,9 @@ export class SectionScroller extends Emitter<ScrollerEvents> {
 		this.velocityVelocity = 0;
 		const prev = this.target;
 		this.target = this.current = Math.round( section );
+		this.jumping = true;
 		if ( prev !== this.target ) this.emit( 'target', this.target );
+		this.jumping = false;
 
 	}
 

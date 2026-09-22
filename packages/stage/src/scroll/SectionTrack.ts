@@ -15,6 +15,20 @@ export interface Shot {
 	parallax?: Vector2;
 	/** Where the hero object stands in this section. */
 	anchor?: { position: Vector3; quaternion: Quaternion; scale: Vector3 };
+	/**
+	 * Camera shift (position and target together) at full portraitWeight, so a set can reframe
+	 * for phones: e.g. center a hero that sits beside text on desktop. Blended, never a breakpoint.
+	 */
+	portraitOffset?: Vector3;
+}
+
+/** World-space width and height visible at `point` through a perspective camera. */
+export function visibleSizeAt( camera: PerspectiveCamera, point: Vector3 ): { width: number; height: number } {
+
+	const distance = camera.position.distanceTo( point );
+	const height = 2 * distance * Math.tan( ( camera.fov * Math.PI ) / 360 );
+	return { width: height * camera.aspect, height };
+
 }
 
 /**
@@ -23,9 +37,12 @@ export interface Shot {
  */
 export function shotFromScene( root: Object3D, anchorName = 'Anchor' ): Shot {
 
-	root.updateMatrixWorld( true );
+	// Include parents: a scene parented under a moved group must report true world poses.
+	root.updateWorldMatrix( true, true );
 
 	const node = root.getObjectByName( 'Camera' );
+	if ( ! node ) console.warn( `[atelier] shotFromScene: no "Camera" in "${root.name}"; using a default camera at (0, 0, 5)` );
+	if ( ! root.getObjectByName( 'CameraTarget' ) ) console.warn( `[atelier] shotFromScene: no "CameraTarget" in "${root.name}"; aiming at the origin. Did gltf-transform optimize drop empty nodes? Keep --flatten false --join false --prune false, or use skills/blender-gltf-stage/scripts/compress-glb.mjs.` );
 	const cam = ( ( node as PerspectiveCamera | undefined )?.isPerspectiveCamera
 		? node
 		: node?.getObjectByProperty( 'isPerspectiveCamera', true ) ) as PerspectiveCamera | undefined;
@@ -51,6 +68,7 @@ const _t = new Vector3();
 const _right = new Vector3();
 const _up = new Vector3();
 const _fwd = new Vector3();
+const _off = new Vector3();
 
 /**
  * Drives a camera through section shots by the scroller value.
@@ -129,6 +147,16 @@ export class SectionTrack implements StageSystem {
 		const [ a, b, f ] = this.pair( this.scroller.value );
 		_p.lerpVectors( a.position, b.position, f );
 		_t.lerpVectors( a.target, b.target, f );
+		if ( a.portraitOffset || b.portraitOffset ) {
+
+			_off.set( 0, 0, 0 );
+			if ( a.portraitOffset ) _off.addScaledVector( a.portraitOffset, 1 - f );
+			if ( b.portraitOffset ) _off.addScaledVector( b.portraitOffset, f );
+			_off.multiplyScalar( this.portraitWeight );
+			_p.add( _off );
+			_t.add( _off );
+
+		}
 
 		const fovA = a.fov + ( a.portraitFov ?? 30 ) * this.portraitWeight;
 		const fovB = b.fov + ( b.portraitFov ?? 30 ) * this.portraitWeight;

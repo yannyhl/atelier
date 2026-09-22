@@ -22,11 +22,14 @@ export function bindScrollInput( scroller: SectionScroller, options: InputOption
 	const wheelScale = options.wheelScale ?? 5e-5;
 	const reduced = options.reducedMotion ?? false;
 	const moveDuration = reduced ? 0.35 : ( options.moveDuration ?? 1 );
-	let lastStep = 0;
+	let lastStep = - Infinity;
+	let lastWheel = - Infinity;
 
 	const onWheel = ( e: Event ) => {
 
 		const ev = e as WheelEvent;
+		// Ctrl+wheel is pinch-zoom on trackpads and browser zoom on mice: never hijack it.
+		if ( ev.ctrlKey ) return;
 		ev.preventDefault();
 		if ( ! scroller.enabled ) return;
 
@@ -34,7 +37,11 @@ export function bindScrollInput( scroller: SectionScroller, options: InputOption
 
 		if ( reduced ) {
 
-			if ( Math.abs( pixels ) < 4 || ev.timeStamp - lastStep < 700 ) return;
+			// One step per gesture: a new gesture starts after 250 ms without wheel events,
+			// so a long trackpad inertia stream can never move two sections.
+			const newGesture = ev.timeStamp - lastWheel > 250;
+			lastWheel = ev.timeStamp;
+			if ( ! newGesture || Math.abs( pixels ) < 4 || ev.timeStamp - lastStep < 400 ) return;
 			lastStep = ev.timeStamp;
 			void scroller.move( scroller.target + Math.sign( pixels ), moveDuration );
 			return;
@@ -84,6 +91,8 @@ export function bindScrollInput( scroller: SectionScroller, options: InputOption
 		if ( ! scroller.enabled || e.defaultPrevented || e.altKey || e.metaKey || e.ctrlKey ) return;
 		const el = e.target as HTMLElement | null;
 		if ( el && ( el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test( el.tagName ) ) ) return;
+		// Space and Enter on a focused control press it; they must not scroll the stage.
+		if ( el && ( e.key === ' ' || e.key === 'Enter' ) && el.closest( 'button, a[href], [role="button"], summary' ) ) return;
 
 		let next: number | null = null;
 		if ( e.key === 'ArrowDown' || e.key === 'PageDown' || ( e.key === ' ' && ! e.shiftKey ) ) next = scroller.target + 1;

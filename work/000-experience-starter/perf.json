@@ -1,0 +1,69 @@
+{
+  "url": "http://localhost:4173/",
+  "auditedAt": "2026-09-22T21:02:24.249Z",
+  "profiles": {
+    "desktop": {
+      "cpuThrottle": 1,
+      "viewport": "laptop",
+      "webgl": true,
+      "tier": 3,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "drawCalls": 22,
+      "triangles": 9024,
+      "frames": 358,
+      "frameP50Ms": 16.7,
+      "frameP95Ms": 16.7,
+      "fcpMs": 136,
+      "cls": 0,
+      "longTasks": [
+        56,
+        77
+      ],
+      "totalTransferKB": 222,
+      "jsTransferKB": 190,
+      "consoleErrors": []
+    },
+    "laptop-4x": {
+      "cpuThrottle": 4,
+      "viewport": "laptop",
+      "webgl": true,
+      "tier": 3,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "drawCalls": 22,
+      "triangles": 9024,
+      "frames": 356,
+      "frameP50Ms": 16.7,
+      "frameP95Ms": 16.7,
+      "fcpMs": 104,
+      "cls": 0,
+      "longTasks": [
+        93
+      ],
+      "totalTransferKB": 222,
+      "jsTransferKB": 190,
+      "consoleErrors": []
+    },
+    "phone-6x": {
+      "cpuThrottle": 6,
+      "viewport": "phone",
+      "webgl": true,
+      "tier": 2,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)",
+      "drawCalls": 17,
+      "triangles": 6734,
+      "frames": 358,
+      "frameP50Ms": 16.7,
+      "frameP95Ms": 16.7,
+      "fcpMs": 156,
+      "cls": 0,
+      "longTasks": [
+        56,
+        93
+      ],
+      "totalTransferKB": 222,
+      "jsTransferKB": 190,
+      "consoleErrors": []
+    }
+  },
+  "failures": []
+}

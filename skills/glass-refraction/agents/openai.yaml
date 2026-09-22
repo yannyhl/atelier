@@ -1,0 +1,4 @@
+interface:
+  display_name: "Glass Refraction"
+  short_description: "Screen-space glass with dispersion, rims and variants"
+  default_prompt: "Use $glass-refraction to add or fix refractive glass (materials, backdrop, dispersion, trail or CRT panels) in this scene."

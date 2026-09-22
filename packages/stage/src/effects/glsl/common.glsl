@@ -28,15 +28,18 @@ mat2 atRotate( float a ) {
 
 float atEaseOutBack( float t ) {
 
+	// Multiply instead of pow(): GLSL pow() is undefined for negative bases (t - 1 < 0 here).
 	float c1 = 1.70158;
 	float c3 = c1 + 1.0;
-	return 1.0 + c3 * pow( t - 1.0, 3.0 ) + c1 * pow( t - 1.0, 2.0 );
+	float x = t - 1.0;
+	return 1.0 + c3 * x * x * x + c1 * x * x;
 
 }
 
 float atEaseOutCubic( float t ) {
 
-	return 1.0 - pow( 1.0 - t, 3.0 );
+	float x = 1.0 - clamp( t, 0.0, 1.0 );
+	return 1.0 - x * x * x;
 
 }
 

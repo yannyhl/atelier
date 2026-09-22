@@ -34,6 +34,8 @@ export interface ProbeResult {
 	renderer: string;
 	reasons: string[];
 	mobile: boolean;
+	/** True when `?tier=N` pinned the tier; the stage then disables runtime adaptation. */
+	forced?: boolean;
 }
 
 const LOW_END = /(mali-[4t]|mali-g(31|51|52|57)|adreno \(tm\) (3|4|50|51|53)\d|powervr|sgx|swiftshader|llvmpipe|softpipe|microsoft basic render)/i;
@@ -57,7 +59,7 @@ export function probeTier( gl: WebGL2RenderingContext | WebGLRenderingContext | 
 	const info = gl.getExtension( 'WEBGL_debug_renderer_info' );
 	const renderer = String( info ? gl.getParameter( info.UNMASKED_RENDERER_WEBGL ) : gl.getParameter( gl.RENDERER ) );
 
-	if ( forced !== null && /^[0-3]$/.test( forced ) ) return { tier: Number( forced ) as Tier, renderer, reasons: [ 'forced by ?tier' ], mobile };
+	if ( forced !== null && /^[0-3]$/.test( forced ) ) return { tier: Number( forced ) as Tier, renderer, reasons: [ 'forced by ?tier' ], mobile, forced: true };
 
 	let tier: Tier = 2;
 

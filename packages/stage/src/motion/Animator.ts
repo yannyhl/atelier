@@ -11,12 +11,15 @@ interface Track<T extends Animatable> {
 	init: T;
 	from: T;
 	to: T;
+	/** Easing given to add(); used when animate() passes none. */
+	baseEasing: Easing;
 	easing: Easing;
 	elapsed: number;
 	delay: number;
 	duration: number;
 	active: boolean;
-	done?: () => void;
+	/** Settles the pending animate() promise: true when it finished, false when interrupted. */
+	done?: ( finished: boolean ) => void;
 }
 
 export interface AnimateOptions {
@@ -46,6 +49,7 @@ export class Animator {
 			init: cloneValue( initValue ),
 			from: cloneValue( initValue ),
 			to: cloneValue( initValue ),
+			baseEasing: easing,
 			easing,
 			elapsed: 0,
 			delay: 0,
@@ -76,25 +80,24 @@ export class Animator {
 	set<T extends Animatable>( name: string, value: T ) {
 
 		const track = this.require( name );
-		track.active = false;
-		track.done?.();
-		track.done = undefined;
+		this.interrupt( track );
 		track.uniform.value = copyInto( track.uniform.value, value );
 
 	}
 
-	/** Tween to `goal`. Resolves when finished; a superseded tween resolves immediately with `false`. */
+	/**
+	 * Tween to `goal`. Resolves `true` when it finishes, or `false` as soon as it is interrupted
+	 * by another animate(), set() or reset(). `options.easing` applies to this call only.
+	 */
 	animate<T extends Animatable>( name: string, goal: T, duration = 1, options: AnimateOptions = {} ): Promise<boolean> {
 
 		const track = this.require( name );
-		track.done?.();
+		this.interrupt( track );
 
 		return new Promise( ( resolve ) => {
 
 			if ( duration <= 0 && ! options.delay ) {
 
-				track.active = false;
-				track.done = undefined;
 				track.uniform.value = copyInto( track.uniform.value, goal );
 				resolve( true );
 				return;
@@ -103,20 +106,13 @@ export class Animator {
 
 			track.from = cloneValue( track.uniform.value );
 			track.to = cloneValue( goal );
-			track.easing = options.easing ?? track.easing;
+			track.easing = options.easing ?? track.baseEasing;
 			track.elapsed = 0;
 			track.delay = options.delay ?? 0;
 			track.duration = Math.max( duration, 1e-6 );
 			track.active = true;
 
-			let settled = false;
-			track.done = () => {
-
-				if ( settled ) return;
-				settled = true;
-				resolve( ! track.active );
-
-			};
+			track.done = resolve;
 
 		} );
 
@@ -132,7 +128,7 @@ export class Animator {
 
 	update( dt: number ) {
 
-		const finished: Array<() => void> = [];
+		const finished: Array<( ok: boolean ) => void> = [];
 
 		for ( const track of this.tracks.values() ) {
 
@@ -156,7 +152,7 @@ export class Animator {
 
 		}
 
-		finished.forEach( ( f ) => f() );
+		finished.forEach( ( f ) => f( true ) );
 
 	}
 
@@ -165,12 +161,19 @@ export class Animator {
 
 		for ( const track of this.tracks.values() ) {
 
-			track.active = false;
-			track.done?.();
-			track.done = undefined;
+			this.interrupt( track );
 			track.uniform.value = copyInto( track.uniform.value, track.init );
 
 		}
+
+	}
+
+	private interrupt( track: Track<Animatable> ) {
+
+		const done = track.done;
+		track.active = false;
+		track.done = undefined;
+		done?.( false );
 
 	}
 

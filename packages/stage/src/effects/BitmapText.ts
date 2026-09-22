@@ -21,9 +21,17 @@ export interface GlyphAtlas {
  */
 export function createGlyphAtlas( chars: string, font = '700 96px sans-serif', tile = 128 ): GlyphAtlas {
 
+	if ( typeof document !== 'undefined' && document.fonts && ! document.fonts.check( font ) ) {
+
+		console.warn( `[atelier] createGlyphAtlas: "${font}" is not loaded yet; await document.fonts.load( font ) first or glyphs fall back to another face` );
+
+	}
+
 	const list = Array.from( new Set( Array.from( chars ) ) );
 	const columns = Math.ceil( Math.sqrt( list.length ) );
 	const rows = Math.ceil( list.length / columns );
+	// Keep the atlas inside the 4096 px texture size every WebGL2 device supports.
+	tile = Math.min( tile, Math.floor( 4096 / Math.max( columns, rows ) ) );
 	const canvas = document.createElement( 'canvas' );
 	canvas.width = columns * tile;
 	canvas.height = rows * tile;

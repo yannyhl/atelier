@@ -41,7 +41,7 @@ for ( const [ name, prof ] of Object.entries( budgets.profiles ) ) {
 	const staged = await waitForStage( page, 60000 );
 	await page.waitForTimeout( 1500 );
 
-	const sections = await page.evaluate( () => document.querySelectorAll( '[data-section]' ).length );
+	const sections = await page.evaluate( () => document.querySelectorAll( 'body [data-section]' ).length );
 	await page.evaluate( () => {
 
 		const f = window.__perf.frames;

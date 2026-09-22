@@ -54,7 +54,7 @@ export class SectionDirector implements StageSystem {
 		} ) );
 		this.looks = a.add( 'section.looks', oneHot( defs.length, 0 ), Easings.easeOutCubic );
 		scroller.setCount( defs.length );
-		scroller.on( 'target', ( i ) => this.go( i ) );
+		scroller.on( 'target', ( i ) => this.go( i, scroller.jumping ) );
 		this.go( 0, true );
 
 	}
@@ -78,14 +78,9 @@ export class SectionDirector implements StageSystem {
 		this.defs.forEach( ( def, i ) => {
 
 			const state: SectionState = i < index ? 'passed' : i === index ? 'viewing' : 'ready';
-			const u = this.uniforms[ i ];
 			void a.animate( `section.${def.name}.state`, state === 'ready' ? 0 : state === 'viewing' ? 1 : 2, d );
 			if ( i === index && def.root ) def.root.visible = true;
-			void a.animate( `section.${def.name}.visibility`, i === index ? 1 : 0, d ).then( ( finished ) => {
-
-				if ( finished && def.root && this.current !== i && u.visibility.value < 0.001 ) def.root.visible = false;
-
-			} );
+			void a.animate( `section.${def.name}.visibility`, i === index ? 1 : 0, d );
 
 			if ( def.element ) {
 
@@ -113,7 +108,10 @@ export class SectionDirector implements StageSystem {
 		this.defs.forEach( ( def, i ) => {
 
 			const v = this.uniforms[ i ].visibility.value;
-			if ( def.update && ( v > 0.001 || i === this.current ) ) def.update( dt, stage, v );
+			const live = v > 0.001 || i === this.current;
+			// Hide fully faded sets here, synchronously per step, so culling never depends on promise timing.
+			if ( def.root ) def.root.visible = live;
+			if ( def.update && live ) def.update( dt, stage, v );
 
 		} );
 
@@ -123,8 +121,8 @@ export class SectionDirector implements StageSystem {
 
 		this.current = - 1;
 		this.scroller.reset();
-		this.defs.forEach( ( d ) => d.root && ( d.root.visible = false ) );
 		this.go( 0, true );
+		this.defs.forEach( ( d, i ) => d.root && ( d.root.visible = i === 0 ) );
 
 	}
 

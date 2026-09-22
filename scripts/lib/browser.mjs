@@ -38,6 +38,11 @@ export function watchConsole( page ) {
 
 	} );
 	page.on( 'pageerror', ( e ) => errors.push( `pageerror: ${e.message}` ) );
+	page.on( 'response', ( r ) => {
+
+		if ( r.status() >= 400 ) errors.push( `http ${r.status()}: ${r.url()}` );
+
+	} );
 	return errors;
 
 }

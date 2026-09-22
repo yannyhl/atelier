@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender glTF Stage"
+  short_description: "Author Blender sets and ship compressed GLBs to the stage"
+  default_prompt: "Use $blender-gltf-stage to export this Blender set to a compressed GLB that keeps its camera contract and loads on the stage."

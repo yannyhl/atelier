@@ -1,6 +1,7 @@
 import type { Stage, StageSystem } from '../core/Stage';
 
-const NOISE = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄ01#%&*+<>/\\';
+/** ASCII noise renders in any Latin font subset; pass katakana only when a CJK font is loaded. */
+const NOISE = '01#%&*+<>/\\=?[]{}_^~';
 
 /**
  * Types text in with a trailing burst of noise glyphs (the reference subtitle writer),
@@ -14,7 +15,19 @@ export class ScrambleText implements StageSystem {
 	private tick = 0;
 	private active = false;
 
-	constructor( public el: HTMLElement, private noise = NOISE, private noiseLength = 3, private stepSeconds = 0.04 ) {}
+	private visible: HTMLElement;
+	private sr: HTMLElement;
+
+	constructor( public el: HTMLElement, private noise = NOISE, private noiseLength = 3, private stepSeconds = 0.04 ) {
+
+		// Screen readers get the final text once; the animated glyphs are hidden from them.
+		this.sr = document.createElement( 'span' );
+		this.sr.className = 'at-sr';
+		this.visible = document.createElement( 'span' );
+		this.visible.setAttribute( 'aria-hidden', 'true' );
+		el.replaceChildren( this.sr, this.visible );
+
+	}
 
 	write( text: string, duration = Math.max( 0.4, text.length * 0.035 ) ) {
 
@@ -23,7 +36,7 @@ export class ScrambleText implements StageSystem {
 		this.elapsed = 0;
 		this.tick = 0;
 		this.active = true;
-		this.el.setAttribute( 'aria-label', text );
+		this.sr.textContent = text;
 
 	}
 
@@ -39,7 +52,7 @@ export class ScrambleText implements StageSystem {
 		const n = Math.floor( this.text.length * p );
 		let tail = '';
 		if ( p < 1 ) for ( let i = 0; i < this.noiseLength; i ++ ) tail += this.noise[ Math.floor( stage.rng() * this.noise.length ) ];
-		this.el.textContent = this.text.slice( 0, n ) + tail;
+		this.visible.textContent = this.text.slice( 0, n ) + tail;
 		if ( p >= 1 ) this.active = false;
 
 	}
@@ -47,7 +60,8 @@ export class ScrambleText implements StageSystem {
 	reset() {
 
 		this.active = false;
-		this.el.textContent = '';
+		this.visible.textContent = '';
+		this.sr.textContent = '';
 
 	}
 

@@ -13,6 +13,7 @@ uniform float uExposure;
 uniform float uTime;
 uniform bool uHasBloom;
 uniform bool uHasDirt;
+uniform vec2 uDirtScale;
 varying vec2 vUv;
 
 vec4 cubic( float v ) {
@@ -66,7 +67,7 @@ void main() {
 	if ( uHasBloom ) {
 
 		vec3 bloom = textureBicubic( uBloomTex, vUv, uBloomSize ) * uBloom;
-		vec3 dirt = uHasDirt ? texture2D( uDirtTex, vUv ).rgb * uDirt : vec3( 0.0 );
+		vec3 dirt = uHasDirt ? texture2D( uDirtTex, ( vUv - 0.5 ) * uDirtScale + 0.5 ).rgb * uDirt : vec3( 0.0 );
 		color += bloom + bloom * dirt;
 
 	}

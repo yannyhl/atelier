@@ -1,0 +1,4 @@
+interface:
+  display_name: "DNA Extraction"
+  short_description: "Reverse-engineer a reference into a DNA dossier"
+  default_prompt: "Use $dna-extraction to study this reference site or video and write its DNA dossier, style spec and evidence."

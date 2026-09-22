@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deterministic Render"
+  short_description: "Frame-exact MP4 renders of stage scenes for X"
+  default_prompt: "Use $deterministic-render to render this stage scene to a verified MP4 teaser for X."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PostFX Bloom and Dirt"
+  short_description: "Tune bloom, lens dirt, vignette and grain per section"
+  default_prompt: "Use $postfx-bloom-dirt to set up, tune or debug the post chain (bloom, lens dirt, vignette, grain, color) for this scene."

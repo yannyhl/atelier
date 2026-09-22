@@ -3,6 +3,7 @@ export { Clock } from './core/Clock';
 export { Emitter } from './core/Emitter';
 export { createRng, type Rng } from './core/random';
 export { createViewport, portraitWeightOf, type Viewport } from './core/Viewport';
+export { warmUp } from './core/warmUp';
 
 export { Animator, oneHot, type Tween, type AnimateOptions } from './motion/Animator';
 export { Easings, HouseCurves, type Easing } from './motion/Easings';
@@ -12,7 +13,7 @@ export { lerp, clamp, smoothstep, damp } from './motion/lerp';
 
 export { SectionScroller } from './scroll/SectionScroller';
 export { bindScrollInput, type InputOptions } from './scroll/bindInput';
-export { SectionTrack, shotFromScene, type Shot } from './scroll/SectionTrack';
+export { SectionTrack, shotFromScene, visibleSizeAt, type Shot } from './scroll/SectionTrack';
 export { SectionDirector, type SectionDef, type SectionState, type SectionUniforms } from './scroll/SectionDirector';
 export { trackPointer } from './scroll/pointer';
 

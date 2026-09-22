@@ -31,10 +31,15 @@ export class FrameMonitor {
 		if ( this.samples.length < this.windowSize ) return 0;
 
 		const sorted = this.samples.slice().sort( ( a, b ) => a - b );
+		const p50 = sorted[ Math.floor( sorted.length * 0.5 ) ];
 		const p90 = sorted[ Math.floor( sorted.length * 0.9 ) ];
 		this.samples.length = 0;
 
-		if ( p90 > this.budgetMs * 1.35 ) {
+		// A steady frame time well above budget is a refresh cap (iOS Low Power Mode runs rAF at 30 Hz),
+		// not overload: lowering quality would not make it faster, so hold.
+		const steady = p90 - p50 < 1.5;
+
+		if ( p90 > this.budgetMs * 1.35 && ! steady ) {
 
 			this.fastWindows = 0;
 			if ( ++ this.slowWindows >= 2 ) {

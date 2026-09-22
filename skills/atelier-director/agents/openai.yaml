@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atelier Director"
+  short_description: "Brief to storyboard, routed build, verified gates and catalog"
+  default_prompt: "Use $atelier-director to turn this brief into a storyboard, build plan and verified, cataloged result."

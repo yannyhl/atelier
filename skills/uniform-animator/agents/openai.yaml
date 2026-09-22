@@ -1,0 +1,4 @@
+interface:
+  display_name: "Uniform Animator"
+  short_description: "Deterministic tweens, easings and shader states on the stage"
+  default_prompt: "Use $uniform-animator to animate this with Animator uniforms, house easings, deterministic staggers and 0/1/2 enter-exit states."

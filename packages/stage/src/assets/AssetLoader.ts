@@ -75,6 +75,11 @@ export class AssetLoader extends Emitter<AssetEvents> {
 
 	}
 
+	/**
+	 * Loads `must` entries, emits 'must', then loads `sub` entries and emits 'all'.
+	 * The promise resolves after everything; to start rendering as soon as the must group is in,
+	 * listen for the 'must' event instead of awaiting.
+	 */
 	async load( entries: AssetEntry[] ) {
 
 		const must = entries.filter( ( e ) => e.priority === 'must' );

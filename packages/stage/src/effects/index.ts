@@ -5,3 +5,4 @@ export { CursorTrail, type TrailOptions } from './CursorTrail';
 export { BitmapText, createGlyphAtlas, type GlyphAtlas, type BitmapTextOptions } from './BitmapText';
 export { createParticles, type ParticleOptions } from './Particles';
 export { createMatcap } from './matcap';
+export { Character, type CharacterLook, type CharacterOptions } from './Character';
