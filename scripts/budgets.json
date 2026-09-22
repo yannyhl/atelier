@@ -1,0 +1,15 @@
+{
+  "$comment": "Performance budgets enforced by scripts/audit-perf.mjs. Tighten per project in work/NNN-slug/budgets.json.",
+  "profiles": {
+    "desktop": { "viewport": "laptop", "cpuThrottle": 1, "frameP95Ms": 17.5, "tierMin": 2 },
+    "laptop-4x": { "viewport": "laptop", "cpuThrottle": 4, "frameP95Ms": 34, "tierMin": 1 },
+    "phone-6x": { "viewport": "phone", "cpuThrottle": 6, "frameP95Ms": 34, "tierMin": 1 }
+  },
+  "page": {
+    "fcpMs": 1500,
+    "cls": 0.02,
+    "totalTransferKB": 3000,
+    "jsTransferKB": 260,
+    "longTasksOver200ms": 0
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@atelier/stage",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Small vanilla TypeScript WebGL stage: fixed-step clock with seek(t), uniform animator, section scroller, post chain, quality tiers.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./effects": "./src/effects/index.ts",
+    "./dom": "./src/dom/index.ts",
+    "./dom/*.css": "./src/dom/*.css"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.186.0",
+    "three": "0.186.0"
+  }
+}

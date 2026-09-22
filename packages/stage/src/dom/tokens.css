@@ -1,0 +1,35 @@
+/*
+ * atelier house tokens (from the JUNNI / loanmeme DNA, see dna/junni-loanmeme/STYLE-SPEC.md).
+ * Curves match motion/Easings.ts HouseCurves; keep both in sync.
+ */
+:root {
+	--at-black: #000;
+	--at-white: #fff;
+	--at-dim: #777;
+	--at-mute: #555;
+	--at-frost: #d6edfa;
+	--at-ice: #8fc9e8;
+	--at-ice-deep: #66add6;
+	--at-lime: #b7f516;
+	--at-lime-rim: #dbff77;
+	--at-lime-shade: #79ca1c;
+	--at-lime-drop: #168d52;
+	--at-lime-drop-deep: #064d2b;
+	--at-lime-ink: #073b21;
+	--at-slate: #35566b;
+
+	--at-ease-enter: cubic-bezier(0, 1.33, 0.37, 0.99);
+	--at-ease-exit: cubic-bezier(0.74, -0.02, 0.94, -0.32);
+	--at-ease-pop: cubic-bezier(0.4, 1.44, 0.74, 1);
+	--at-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+	--at-dur-enter: 0.7s;
+	--at-dur-exit: 0.5s;
+	--at-dur-fade: 1s;
+	--at-dur-chrome: 2s;
+	--at-stagger: 60ms;
+
+	--at-track-wide: 0.3em;
+	--at-track-ui: 0.2em;
+	--at-gutter: 6%;
+}

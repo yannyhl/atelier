@@ -1,0 +1,27 @@
+{
+  "name": "atelier",
+  "private": true,
+  "type": "module",
+  "description": "Reverse-engineered visual DNA turned into cross-harness skills, a small WebGL engine, templates and a catalog of work.",
+  "engines": { "node": ">=22.14 <23" },
+  "workspaces": ["packages/*", "templates/*", "examples/*"],
+  "scripts": {
+    "validate": "node scripts/validate-skills.mjs",
+    "agents": "node scripts/build-agents.mjs",
+    "catalog": "node scripts/build-catalog.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "check": "npm run validate && node scripts/build-agents.mjs --check && node scripts/build-catalog.mjs --check && npm run typecheck && npm run build",
+    "capture": "node scripts/capture-matrix.mjs",
+    "audit": "node scripts/audit-perf.mjs",
+    "render": "node scripts/render-video.mjs",
+    "install-skills": "node scripts/install.mjs"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "4.5.0",
+    "@types/node": "22.20.4",
+    "playwright": "1.63.0",
+    "typescript": "7.0.2",
+    "vite": "8.3.0"
+  }
+}

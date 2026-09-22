@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+/tmp/
+# render and capture scratch; curated outputs are copied into work/NNN-slug/
+.render-cache/
+artifacts/

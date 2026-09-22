@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#000000" />
+		<title>atelier starter</title>
+		<meta name="description" content="A static-first page that upgrades to a scroll-driven WebGL stage." />
+		<meta property="og:title" content="atelier starter" />
+		<meta property="og:description" content="A static-first page that upgrades to a scroll-driven WebGL stage." />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<script>
+			// Opt into stage layout before first paint so the WebGL upgrade causes no layout shift.
+			// The static document stays the fallback (no WebGL2, ?static, tier 0, context loss).
+			try {
+				if ( ! /[?&]static\b/.test( location.search ) && document.createElement( 'canvas' ).getContext( 'webgl2' ) ) document.documentElement.classList.add( 'is-webgl' );
+			} catch ( e ) {}
+		</script>
+	</head>
+	<body>
+		<div class="app" id="app">
+			<canvas class="stage" id="stage" aria-hidden="true"></canvas>
+			<div class="loader" aria-hidden="true"><span class="loader__mark">atelier</span></div>
+
+			<main class="sections">
+				<section class="section section--intro" data-section="intro" aria-labelledby="intro-title">
+					<h1 class="section__title" id="intro-title">atelier</h1>
+					<p class="section__lede" data-reveal>
+						<span data-reveal-line>Somewhere between a page and a film,</span>
+						<span data-reveal-line>a stage is waiting for its first scene.</span>
+					</p>
+				</section>
+
+				<section class="section section--glass" data-section="glass" aria-labelledby="glass-title">
+					<h2 class="section__title" id="glass-title">Glass</h2>
+					<p class="section__lede" data-reveal>
+						<span data-reveal-line>Everything behind it bends into color.</span>
+					</p>
+				</section>
+
+				<section class="section section--outro" data-section="outro" aria-labelledby="outro-title">
+					<h2 class="section__title section__title--cta" id="outro-title">Early will be <span class="rainbow">rewarded</span></h2>
+					<a class="cta" href="#">Join us</a>
+				</section>
+			</main>
+
+			<footer class="footer">
+				<div class="footer__dots" id="dots"></div>
+				<p class="footer__copy">&copy; 2026 atelier</p>
+			</footer>
+			<div class="ring-slot" id="ring"></div>
+		</div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>
