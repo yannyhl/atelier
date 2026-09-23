@@ -2,6 +2,22 @@
   "$comment": "Source of truth for work/CATALOG.md. Newest first. origin: atelier | prior. status: Proposed | Accepted | Implemented locally | Verified locally | Published.",
   "entries": [
     {
+      "id": "002",
+      "title": "test launch",
+      "origin": "atelier",
+      "date": "2026-09-22",
+      "kind": "memecoin launch: mascot, narrative, utility",
+      "status": "Proposed",
+      "dna": [
+        "junni-loanmeme"
+      ],
+      "skills": [
+        "atelier-director"
+      ],
+      "path": "work/002-test-launch/",
+      "summary": "Concept round 1: five plush mascots (Sniff, Sunny, Tape, Twap, Proof) each paired with a trending venue and a day-one utility built from existing trencher tools."
+    },
+    {
       "id": "001",
       "title": "atelier study",
       "origin": "atelier",

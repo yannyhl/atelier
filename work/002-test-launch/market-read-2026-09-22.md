@@ -1,0 +1,20 @@
+# Meme meta notes (2026-09-22)
+- StonkFun (@LaunchOnSF, stonkfun.xyz) launched 2026-08-03, Solana, Raydium LaunchLab; pair vs any asset (xStocks, PreStocks OPENAI/ANTHROPIC, ZEC, WBTC, HYPE, TAO, SOL, PENGU 9/6, DOGE 9/7, AAVE/AVAX/NEAR 9/21, APE 9/22). 60% rev -> STONK buyback/burn. Reward tokens: 1% or 3% transfer tax -> paid in quote asset to holders.
+- 9/6 STONK +250% to $140M (The Block). 9/6 rev $1.5M > pump. 9/11 record $2.21M/day. mcap ~$283M (CMC ~9/21), ATH $0.357 9/21.
+- APE canonical on Solana via Sunrise (Wormhole NTT) 9/22 17:22 UTC; Raydium 17:43 UTC; 24h $17.7M vol, 19,847 traders (solanacompass). StonkFun accepts APE pair same day.
+- APED (apedfun.com, @ApedFunStonk, joined 9/22, 7 followers): BAYC/MAYC/Koda reflection token paid in APE; 50% claimable by 37,887 NFTs.
+- PEPE canonical on Solana 9/18, $40M 24h.
+- thestonkboard 9/23 00:08 UTC: ZCAT $90M (ZEC), KNOTS $13.9M, GP $12.3M (GLDX), ALLINU $10.2M (DKNG), NEARKAT $9.3M, PURR $8.8M (HYPE), RAYCAT $4M, POLLY $1.3M (PENGU)...
+- ZCAT: paid $2.8M ZEC by 9/7 (CoinDesk), 3% tax, ~$124M mcap early Sep.
+- Pons (Robinhood Chain) launched 7/14-15; 80% fees buyback PONS; $5.95M fees/24h 9/3; PONS $430M 9/3. CASHCAT ~$254M, GOOSE $78M, CHUMP $30M.
+- BNB Chain "$4M BNB Stonks Szn" from 9/4, bStocks-paired memes, HODLer Index rewards.
+- Pump.fun 50% net rev buyback; $322M rev YTD to 9/15.
+- Bags: 1% creator fee, split to up to 100 wallets.
+- pump.fun custom pairs (93 via Sunrise/xStocks) + holder rewards 0.01-3% (airdropalert 9/12). Cashback removed for standard launches.
+- MarsCoin BNB (Flap), SPCXB-paired, 3% tax -> SPCXB vault; ~$193M 9/4.
+- CASHCAT $189M 9/17 (ATH 9/3); Robinhood Chain gas subsidy expires 9/29. Noxa shut 7/13.
+- Fomo passed Axiom daily Solana volume (Aug 2026). Pump bought Padre (Oct 2025) and Kolscan (Apr 2026).
+- 120 Hours rug on pump.fun 9/17 (fees-to-family story).
+- STONK10 basket token: 20 epochs, 377 SOL basket buys, 2,913 recipients by 9/22.
+- @loanmeme joined 9/7, 4,598 followers; 77% fees -> buyback/burn; mascot Melo.
+- apelaunch.io = no-code memecoin website builder (press release), not a launchpad.

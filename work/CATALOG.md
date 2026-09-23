@@ -10,6 +10,7 @@ Status follows the decision states in `AGENTS.md`.
 
 | ID | Work | Date | Kind | Status | DNA | Skills | Summary |
 |---|---|---|---|---|---|---|---|
+| 002 | [test launch](002-test-launch/) | 2026-09-22 | memecoin launch: mascot, narrative, utility | Proposed | junni-loanmeme | `atelier-director` | Concept round 1: five plush mascots (Sniff, Sunny, Tape, Twap, Proof) each paired with a trending venue and a day-one utility built from existing trencher tools. |
 | 001 | [atelier study](001-atelier-study/) | 2026-09-22 | website + teaser video | Verified locally | junni-loanmeme | `atelier-director` `scroll-stage` `postfx-bloom-dirt` `glass-refraction` `character-studio-shading` `gpgpu-effects` `kinetic-type` `deterministic-render` | Flagship study: five sets and an original Blender-authored mascot. 393 KB transfer, CLS 0, all budgets met; deterministic 30 s teasers at 1920x1080 and 1080x1920. |
 | 000 | [experience starter](000-experience-starter/) | 2026-09-22 | template | Verified locally | junni-loanmeme | `scroll-stage` `uniform-animator` `postfx-bloom-dirt` `glass-refraction` `kinetic-type` `perf-tiering` `deterministic-render` | Three-section static-first template. 222 KB transfer, CLS 0, all budgets met; both Claude Code and Codex built a new set from it via the scroll-stage skill. |
 

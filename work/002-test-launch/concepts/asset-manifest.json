@@ -1,0 +1,47 @@
+[
+  {
+    "file": "01-sniff.png",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 1972214,
+    "sha256": "4c7c83e0a2b9227caea6ced964fa4e579f0d946a9523a5141ca957dfa9872719",
+    "tool": "codex built-in image generation",
+    "prompt": "prompts/01-sniff.txt"
+  },
+  {
+    "file": "02-sunny.png",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 2213848,
+    "sha256": "06ad5ea217b01aa758067747e85f417742c43e61fd83249d019e3eea4bf27d4c",
+    "tool": "codex built-in image generation",
+    "prompt": "prompts/02-sunny.txt"
+  },
+  {
+    "file": "03-tape.png",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 1941219,
+    "sha256": "26f06d7fa852dcdf5d949e4e6ff5da08fbd9b8b3ce545f52fdb2b37f7e338a5c",
+    "tool": "codex built-in image generation",
+    "prompt": "prompts/03-tape.txt"
+  },
+  {
+    "file": "04-twap.png",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 2063279,
+    "sha256": "2e3f34e29f6c811815b4ef591ef41bed419c9a615af22f6892e95d729ab4f891",
+    "tool": "codex built-in image generation",
+    "prompt": "prompts/04-twap.txt"
+  },
+  {
+    "file": "05-proof.png",
+    "width": 1254,
+    "height": 1254,
+    "bytes": 2031422,
+    "sha256": "85c57a76fc4d3ee02e1f6454bf2e510a309df9374335fe422f0db6a4bfd72e0b",
+    "tool": "codex built-in image generation",
+    "prompt": "prompts/05-proof.txt"
+  }
+]
